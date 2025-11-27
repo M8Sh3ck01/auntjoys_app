@@ -1,6 +1,9 @@
 # Environment variables
 .env
 
+.qodo 
+*WARP.md
+
 # IDE
 .vscode/
 .idea/
