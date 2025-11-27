@@ -2,7 +2,7 @@
 .env
 
 .qodo 
-*WARP.md
+*.WARP.md
 
 # IDE
 .vscode/
