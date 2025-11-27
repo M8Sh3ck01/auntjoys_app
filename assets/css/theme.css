@@ -1,0 +1,61 @@
+/* assets/css/theme.css */
+@import url('./tokens.css');
+@import url('./typography.css');
+@import url('./buttons.css');
+@import url('./skeleton.css');
+
+/* Map tokens to Bootstrap so components inherit the palette */
+:root {
+  --bs-body-bg: var(--bg-body);
+  --bs-body-color: var(--text-body);
+  --bs-primary: var(--color-primary);
+  --bs-secondary: var(--color-secondary);
+  --bs-success: var(--color-success);
+  --bs-danger: var(--color-danger);
+  --bs-warning: var(--color-warning);
+  --bs-info: var(--color-info);
+  --bs-link-color: var(--color-primary);
+  --bs-link-hover-color: var(--color-brand-200);
+  /* RGB for utilities that rely on rgb variables */
+  --bs-primary-rgb: 0, 109, 119;   /* #006d77 */
+  --bs-info-rgb: 131, 197, 190;    /* #83c5be */
+}
+
+body {
+  background: var(--bg-body);
+  color: var(--text-body);
+}
+
+.text-muted { color: var(--text-muted) !important; }
+
+/* Primary button tuning */
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--color-brand-500);
+  --bs-btn-border-color: var(--color-brand-500);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--color-brand-400);
+  --bs-btn-hover-border-color: var(--color-brand-400);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--color-brand-600);
+  --bs-btn-active-border-color: var(--color-brand-600);
+  --bs-btn-disabled-bg: var(--color-brand-300);
+  --bs-btn-disabled-border-color: var(--color-brand-300);
+  --bs-btn-focus-shadow-rgb: 0,109,119;
+}
+
+/* Info button tuning (Tiffany Blue) */
+.btn-info {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--color-info);
+  --bs-btn-border-color: var(--color-info);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #56afa6; /* slightly darker */
+  --bs-btn-hover-border-color: #56afa6;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #3f857e; /* darker */
+  --bs-btn-active-border-color: #3f857e;
+  --bs-btn-disabled-bg: #b4dcd8; /* pale */
+  --bs-btn-disabled-border-color: #b4dcd8;
+  --bs-btn-focus-shadow-rgb: 131,197,190;
+}

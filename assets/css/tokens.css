@@ -1,0 +1,40 @@
+/* assets/css/tokens.css */
+:root {
+  /* Brand palette (Caribbean Current - Teal) */
+  --color-brand-50:  #b0f8ff;
+  --color-brand-100: #62f2ff;
+  --color-brand-200: #13ebff;
+  --color-brand-300: #00b4c4;
+  --color-brand-400: #00565e;
+  --color-brand-500: #006d77; /* PRIMARY */
+  --color-brand-600: #004146;
+  --color-brand-700: #002b2f;
+  --color-brand-800: #001617;
+  --color-brand-900: #001617;
+
+  /* Neutrals */
+  --gray-50:  #f8fafc;  --gray-100: #f1f5f9;  --gray-200: #e2e8f0;  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;  --gray-500: #64748b;  --gray-600: #475569;  --gray-700: #334155;
+  --gray-800: #1f2937;  --gray-900: #0f172a;
+
+  /* Semantic colors (use these across the app) */
+  --color-primary:   var(--color-brand-500);
+  --color-secondary: #83c5be; /* Tiffany Blue */
+  --color-success:   #e29578; /* Atomic Tangerine */
+  --color-danger:    #ffddd2; /* Pale Dogwood */
+  --color-warning:   #ffddd2; /* Pale Dogwood */
+  --color-info:      #83c5be; /* Tiffany Blue */
+
+  /* Surfaces + text */
+  --bg-body:   #edf6f9; /* Alice Blue */
+  --text-body: var(--gray-800);
+  --text-muted: var(--gray-600);
+}
+
+/* Optional dark theme */
+[data-theme="dark"] {
+  --bg-body: #0f172a;
+  --text-body: #e2e8f0;
+  --text-muted: #94a3b8;
+  --color-secondary: #94a3b8;
+}

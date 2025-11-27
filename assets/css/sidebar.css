@@ -1,0 +1,386 @@
+/* Admin Sidebar Styling */
+
+.admin-sidebar {
+    background: linear-gradient(180deg, var(--color-brand-500) 0%, var(--color-brand-600) 100%);
+    min-height: calc(100vh - 56px);
+    padding: 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    left: 0;
+    top: 56px;
+    bottom: 0;
+    width: 250px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    z-index: 1025;
+}
+
+/* Desktop sidebar visible */
+@media (min-width: 769px) {
+    body {
+        margin-left: 250px;
+    }
+
+    .admin-content {
+        margin-left: 0;
+        padding-left: 0 !important;
+    }
+
+    /* Modals should not be affected by body margin */
+    .modal {
+        margin-left: 0 !important;
+        left: 0 !important;
+    }
+}
+
+/* Sidebar Header with Logo */
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.sidebar-header .logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-header .logo-wrapper i {
+    font-size: 1.8rem;
+    color: var(--color-brand-100);
+}
+
+.sidebar-header .restaurant-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-header .sidebar-tagline {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+}
+
+.sidebar-nav .nav-item {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.sidebar-nav .nav-link i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.sidebar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding-left: 1.8rem;
+}
+
+.sidebar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-left-color: var(--color-brand-100);
+    box-shadow: inset -3px 0 0 rgba(19, 235, 255, 0.3);
+}
+
+.sidebar-nav .nav-link.active i {
+    opacity: 1;
+    color: var(--color-brand-100);
+}
+
+/* Sidebar Footer with User Profile */
+.sidebar-footer {
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    margin-top: auto;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.user-profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-brand-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--color-brand-700);
+    flex-shrink: 0;
+}
+
+.user-profile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-profile-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-profile-role {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Toggle Button */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+}
+
+.sidebar-toggle.collapsed {
+    transform: rotate(180deg);
+}
+
+/* Collapsed State */
+.admin-sidebar.collapsed {
+    width: 70px !important;
+}
+
+.admin-sidebar.collapsed .sidebar-header .restaurant-name,
+.admin-sidebar.collapsed .sidebar-header .sidebar-tagline {
+    display: none;
+}
+
+.admin-sidebar.collapsed .sidebar-header {
+    padding: 1rem;
+    text-align: center;
+}
+
+.admin-sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding: 0.75rem;
+}
+
+.admin-sidebar.collapsed .nav-link span {
+    display: none;
+}
+
+.admin-sidebar.collapsed .sidebar-footer {
+    padding: 0.75rem;
+}
+
+.admin-sidebar.collapsed .user-profile {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+}
+
+.admin-sidebar.collapsed .user-profile-info {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1050;
+    }
+
+    body {
+        padding-top: 56px;
+    }
+
+    .admin-sidebar {
+        position: fixed;
+        left: -100%;
+        top: 56px;
+        bottom: 0;
+        width: 250px;
+        z-index: 1030;
+        height: calc(100vh - 56px);
+        transition: left 0.3s ease;
+        overflow-y: auto;
+    }
+
+    .admin-sidebar.show {
+        left: 0;
+    }
+
+    .sidebar-toggle {
+        display: flex;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1020;
+        display: none;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+
+    .admin-content {
+        margin-left: 0;
+        min-height: calc(100vh - 56px);
+        overflow-y: auto;
+        padding-left: 0;
+        padding-top: 1.5rem;
+        padding-right: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .admin-sidebar.collapsed {
+        width: 250px;
+        left: -100%;
+    }
+
+    .admin-sidebar.collapsed .sidebar-header .restaurant-name,
+    .admin-sidebar.collapsed .sidebar-header .sidebar-tagline {
+        display: block;
+    }
+
+    .admin-sidebar.collapsed .nav-link span {
+        display: inline;
+    }
+
+    .d-flex {
+        flex-direction: column;
+    }
+
+    .d-flex > .admin-content {
+        margin-left: 0;
+        width: 100%;
+        padding-left: 0 !important;
+        padding-top: 1.5rem;
+        padding-right: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+}
+
+/* Smooth scrolling customization */
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Main content adjustment */
+.admin-content {
+    transition: margin 0.3s ease;
+    margin-left: 0;
+    margin-top: 0;
+    min-height: calc(100vh - 56px);
+    overflow-y: auto;
+    width: calc(100% - 250px);
+    padding: 1.5rem;
+}
+
+.admin-sidebar.collapsed ~ .admin-content {
+    padding-left: 70px;
+}
+
+/* Navbar fixed */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    width: 100%;
+}
+
+/* Layout wrapper */
+body {
+    padding-top: 56px;
+}
+
+.d-flex {
+    display: flex !important;
+    position: relative;
+}
+
+.d-flex > .admin-content {
+    flex: 1;
+    margin-left: 0;
+    width: 100%;
+    z-index: 1;
+    padding-left: 250px;
+    padding-top: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1.5rem;
+}
