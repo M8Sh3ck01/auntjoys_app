@@ -2,8 +2,7 @@
 
 ## Project Overview
 Web-based food ordering platform for Aunt Joy's Restaurant in Mzuzu.
-**Due Date**: November 28th, 2025
-**Team Size**: 4 members
+
 **Tech Stack**: Object-oriented PHP, MySQL, HTML, CSS, JavaScript
 
 ## Technical Requirements
