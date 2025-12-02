@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '/../../includes/auth.php';
-requireLogin(); // Customers only
+// Assumes the controller has already enforced requireLogin()
 
 $pageTitle = "Change Password";
 $activePage = 'profile';

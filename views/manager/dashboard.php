@@ -1,9 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/Order.php';
-
-$orderModel = new Order();
-$stats = $orderModel->getStatistics();
-$bestSellers = $orderModel->getBestSellers(5);
+// Assumes the controller has already prepared:
+// - $stats and $bestSellers for the manager dashboard
 ?>
 <!DOCTYPE html>
 <html lang="en">

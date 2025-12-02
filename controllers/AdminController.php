@@ -7,17 +7,58 @@
 require_once __DIR__ . '/../models/Meal.php';
 require_once __DIR__ . '/../models/Category.php';
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/Order.php';
 require_once __DIR__ . '/../includes/auth.php';
 
 class AdminController {
     private $mealModel;
     private $categoryModel;
     private $userModel;
+    private $orderModel;
 
     public function __construct() {
         $this->mealModel = new Meal();
         $this->categoryModel = new Category();
         $this->userModel = new User();
+        $this->orderModel = new Order();
+    }
+
+    public function showDashboard() {
+        requireRole([2]);
+
+        $totalMeals = count($this->mealModel->getAll());
+        $totalCategories = count($this->categoryModel->getAll());
+        $totalUsers = count($this->userModel->getAll());
+        $totalOrders = count($this->orderModel->getAll());
+
+        $stats = $this->orderModel->getStatistics();
+
+        require __DIR__ . '/../views/admin/dashboard.php';
+    }
+
+    public function showMeals() {
+        requireRole([2]);
+
+        $meals = $this->mealModel->getAll();
+        $categories = $this->categoryModel->getAll();
+
+        require __DIR__ . '/../views/admin/meals.php';
+    }
+
+    public function showCategories() {
+        requireRole([2]);
+
+        $categories = $this->categoryModel->getAll();
+
+        require __DIR__ . '/../views/admin/categories.php';
+    }
+
+    public function showUsers() {
+        requireRole([2]);
+
+        $users = $this->userModel->getAll();
+
+        require __DIR__ . '/../views/admin/users.php';
     }
 
     /**

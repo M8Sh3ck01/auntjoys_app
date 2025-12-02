@@ -1,8 +1,6 @@
 <?php
-require_once __DIR__ . '/../../includes/cart.php';
-
-$cart = getCart();
-$cartTotal = getCartTotal();
+// Assumes the controller has already prepared:
+// $cart and $cartTotal for the current user
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -14,6 +14,16 @@ class SalesController {
         $this->orderModel = new Order();
     }
 
+    public function showOrders() {
+        requireRole([3]); // Sales Staff only
+
+        $orderModel = $this->orderModel;
+        $status_filter = $_GET['status'] ?? null;
+        $orders = $orderModel->getAll($status_filter);
+
+        require __DIR__ . '/../views/sales/orders.php';
+    }
+
     /**
      * Update order status
      */

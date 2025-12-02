@@ -17,7 +17,7 @@
                 <div class="card shadow">
                     <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <h2 class="fw-bold">Welcome Back</h2>
+                            <h2 class="fw-bold">Sign In</h2>
                             <p class="text-muted">Aunt Joy's Restaurant</p>
                         </div>
 
@@ -53,13 +53,13 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100 mb-3">
-                                <i class="fas fa-sign-in-alt"></i> Login
+                                <i class="fas fa-sign-in-alt"></i> Sign In
                             </button>
                         </form>
 
                         <div class="text-center">
                             <p class="mb-0">Don't have an account? 
-                                <a href="index.php?page=register" class="text-decoration-none">Register here</a>
+                                <a href="index.php?page=register" class="text-decoration-none">Sign up here</a>
                             </p>
                         </div>
                     </div>

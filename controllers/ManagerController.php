@@ -14,6 +14,27 @@ class ManagerController {
         $this->orderModel = new Order();
     }
 
+    public function showDashboard() {
+        requireRole([4]);
+
+        $stats = $this->orderModel->getStatistics();
+        $bestSellers = $this->orderModel->getBestSellers(5);
+
+        require __DIR__ . '/../views/manager/dashboard.php';
+    }
+
+    public function showReports() {
+        requireRole([4]);
+
+        $month = $_GET['month'] ?? null;
+        $year = $_GET['year'] ?? null;
+
+        $stats = $this->orderModel->getStatistics($month, $year);
+        $bestSellers = $this->orderModel->getBestSellers(10, $month, $year);
+
+        require __DIR__ . '/../views/manager/reports.php';
+    }
+
     /**
      * Export report to CSV (Excel-compatible)
      */

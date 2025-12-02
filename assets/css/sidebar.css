@@ -25,12 +25,6 @@
         margin-left: 0;
         padding-left: 0 !important;
     }
-
-    /* Modals should not be affected by body margin */
-    .modal {
-        margin-left: 0 !important;
-        left: 0 !important;
-    }
 }
 
 /* Sidebar Header with Logo */
@@ -234,7 +228,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 769px) {
     .navbar {
         position: fixed;
         top: 0;
@@ -367,6 +361,26 @@
 /* Layout wrapper */
 body {
     padding-top: 56px;
+}
+
+/* Ensure Bootstrap modals appear above navbar and sidebar */
+.modal {
+    z-index: 2000;
+}
+
+.modal-backdrop {
+    z-index: 1990;
+}
+
+/* Add top margin so modal content appears clearly below fixed navbar */
+.admin-content .modal-dialog {
+    margin-top: 4rem;
+}
+
+/* When a modal is open, ensure sidebar overlay does not block clicks */
+body.modal-open .sidebar-overlay {
+    z-index: 0 !important;
+    pointer-events: none !important;
 }
 
 .d-flex {

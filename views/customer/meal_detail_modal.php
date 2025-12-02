@@ -60,6 +60,10 @@
 
     // Load meal details via AJAX
     function showMealDetail(mealId) {
+        if (typeof showScreenLoader === 'function') {
+            showScreenLoader();
+        }
+
         fetch(`index.php?action=get_meal_detail&meal_id=${mealId}`)
             .then(response => response.json())
             .then(data => {
@@ -77,6 +81,11 @@
             .catch(error => {
                 console.error('Error:', error);
                 alert('Error loading meal details');
+            })
+            .finally(() => {
+                if (typeof hideScreenLoader === 'function') {
+                    hideScreenLoader();
+                }
             });
     }
 
@@ -119,12 +128,23 @@
         `;
 
         document.getElementById('mealDetailContent').innerHTML = content;
-        document.getElementById('detailMealId').value = meal.meal_id;
-        document.getElementById('detailQuantity').value = 1;
-        
-        // Disable add to cart if out of stock
-        if (!meal.is_available) {
-            document.getElementById('addToCartForm').querySelector('button[type="submit"]').disabled = true;
+
+        // These elements exist only when the user is logged in
+        const detailMealIdInput = document.getElementById('detailMealId');
+        const detailQuantityInput = document.getElementById('detailQuantity');
+
+        if (detailMealIdInput && detailQuantityInput) {
+            detailMealIdInput.value = meal.meal_id;
+            detailQuantityInput.value = 1;
+
+            // Disable add to cart if out of stock
+            if (!meal.is_available) {
+                const addToCartForm = document.getElementById('addToCartForm');
+                const submitButton = addToCartForm?.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    submitButton.disabled = true;
+                }
+            }
         }
     }
 

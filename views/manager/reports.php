@@ -1,13 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/Order.php';
-
-$orderModel = new Order();
-
-$month = $_GET['month'] ?? null;
-$year = $_GET['year'] ?? null;
-
-$stats = $orderModel->getStatistics($month, $year);
-$bestSellers = $orderModel->getBestSellers(10, $month, $year);
+// Assumes the controller has already prepared:
+// - $month, $year, $stats, and $bestSellers
 ?>
 <!DOCTYPE html>
 <html lang="en">

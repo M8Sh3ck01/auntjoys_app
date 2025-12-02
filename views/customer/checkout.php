@@ -1,16 +1,8 @@
 <?php
-require_once __DIR__ . '/../../includes/cart.php';
-require_once __DIR__ . '/../../models/User.php';
-
-if (isCartEmpty()) {
-    header('Location: /auntjoys_app/index.php?page=menu');
-    exit;
-}
-
-$userModel = new User();
-$user = $userModel->findById(getUserId());
-$cart = getCart();
-$cartTotal = getCartTotal();
+// Assumes the controller has already:
+// - enforced requireLogin()
+// - redirected if the cart is empty
+// - loaded $user, $cart, and $cartTotal
 ?>
 <!DOCTYPE html>
 <html lang="en">

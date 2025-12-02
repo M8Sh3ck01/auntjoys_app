@@ -1,18 +1,7 @@
 <?php
-require_once __DIR__ . '/../../models/Meal.php';
-require_once __DIR__ . '/../../models/Category.php';
-
-$mealModel = new Meal();
-$categoryModel = new Category();
-
-$meals = $mealModel->getAll();
-$categories = $categoryModel->getAll();
-
-// For editing
-$editMeal = null;
-if (isset($_GET['edit'])) {
-    $editMeal = $mealModel->findById($_GET['edit']);
-}
+// Assumes the controller has already prepared:
+// - $meals list
+// - $categories list
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,11 +1,7 @@
 <?php
-require_once __DIR__ . '/../../models/Order.php';
-
-$orderModel = new Order();
-
-// Filter by status
-$status_filter = $_GET['status'] ?? null;
-$orders = $orderModel->getAll($status_filter);
+// Assumes the controller has already prepared:
+// - $orderModel (Order model instance)
+// - $status_filter and $orders
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,59 +19,32 @@ $orders = $orderModel->getAll($status_filter);
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <button class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <a class="navbar-brand ms-3" href="#">
+            <a class="navbar-brand" href="index.php?page=sales/orders">
                 <i class="fas fa-clipboard-list"></i> Sales Panel
             </a>
-        </div>
-    </nav>
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+            <div class="d-flex align-items-center ms-auto gap-2">
+                <button class="btn btn-sm btn-outline-light" onclick="location.reload()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
 
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <nav class="admin-sidebar col-md-2">
-            <div class="sidebar-header">
-                <div class="logo-wrapper">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <h5 class="restaurant-name">Aunt Joy's</h5>
-                <p class="sidebar-tagline">Sales Staff</p>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=sales/orders">
-                        <i class="fas fa-shopping-bag"></i> <span>Orders</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="user-profile-avatar">
-                        <?php echo strtoupper(substr(getUsername(), 0, 1)); ?>
-                    </div>
-                    <div class="user-profile-info">
-                        <p class="user-profile-name"><?php echo htmlspecialchars(getUsername()); ?></p>
-                        <p class="user-profile-role">Sales Staff</p>
-                    </div>
-                </div>
-                <a href="index.php?page=logout" class="btn btn-outline-light btn-sm w-100 mt-3">
+                <a href="index.php?page=sales/orders" class="btn btn-sm btn-light text-primary">
+                    <i class="fas fa-shopping-bag"></i> Orders
+                </a>
+
+                <a href="index.php?page=logout" class="btn btn-sm btn-outline-light">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Main content -->
-        <main class="admin-content col-md-10 px-md-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2><i class="fas fa-shopping-bag"></i> Order Management</h2>
-            <div>
-                <button class="btn btn-sm btn-outline-primary" onclick="location.reload()">
-                    <i class="fas fa-sync"></i> Refresh
-                </button>
-            </div>
+    <!-- Sidebar temporarily disabled on this page to avoid overlay issues with modals -->
+
+    <!-- Main content -->
+    <main class="admin-content px-3 px-md-4 pt-3 pt-md-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-3 mb-md-4">
+            <h2 class="mb-0"><i class="fas fa-shopping-bag me-2"></i> Order Management</h2>
         </div>
 
         <?php
@@ -156,9 +125,9 @@ $orders = $orderModel->getAll($status_filter);
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card h-100">
                             <div class="card-header bg-<?php echo $statusColor; ?> text-white">
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-1">
                                     <strong>Order #<?php echo $order['order_id']; ?></strong>
-                                    <span class="badge bg-light text-dark">
+                                    <span class="badge bg-light text-dark mt-1 mt-sm-0">
                                         <?php echo htmlspecialchars($order['status']); ?>
                                     </span>
                                 </div>
@@ -180,7 +149,7 @@ $orders = $orderModel->getAll($status_filter);
                                     <?php if ($orderDetails && isset($orderDetails['items'])): ?>
                                         <?php foreach ($orderDetails['items'] as $item): ?>
                                             <li>
-                                                <i class="fas fa-circle" style="font-size: 6px;"></i> 
+                                                <i class="fas fa-circle fa-xs me-1"></i>
                                                 <?php echo htmlspecialchars($item['meal_name']); ?> 
                                                 (×<?php echo $item['quantity']; ?>)
                                             </li>
@@ -204,12 +173,12 @@ $orders = $orderModel->getAll($status_filter);
 
                                 <hr>
 
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
                                     <strong class="text-primary">MWK <?php echo number_format($order['total_amount'], 2); ?></strong>
                                     <button class="btn btn-sm btn-outline-primary" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#statusModal<?php echo $order['order_id']; ?>">
-                                        <i class="fas fa-edit"></i> Update Status
+                                        <i class="fas fa-edit me-1"></i> Update Status
                                     </button>
                                 </div>
                             </div>
@@ -217,48 +186,88 @@ $orders = $orderModel->getAll($status_filter);
                     </div>
 
                     <!-- Status Update Modal -->
-                    <div class="modal fade" id="statusModal<?php echo $order['order_id']; ?>" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
+                    <div class="modal fade" id="statusModal<?php echo $order['order_id']; ?>" tabindex="-1" aria-labelledby="statusModalLabel<?php echo $order['order_id']; ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow-lg">
                                 <form action="index.php?page=sales/orders&action=update-status" method="POST">
                                     <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Update Order #<?php echo $order['order_id']; ?></h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                                    <div class="modal-header border-0 pb-0">
+                                        <div>
+                                            <h5 class="modal-title" id="statusModalLabel<?php echo $order['order_id']; ?>">
+                                                Update Order #<?php echo $order['order_id']; ?>
+                                            </h5>
+                                            <p class="mb-0 small text-muted">
+                                                <i class="fas fa-user me-1"></i> <?php echo htmlspecialchars($order['username']); ?>
+                                                &middot;
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                <?php echo date('M d, Y h:i A', strtotime($order['order_date'])); ?>
+                                            </p>
+                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+
+                                    <div class="modal-body pt-2">
+                                        <!-- Current status -->
                                         <div class="mb-3">
-                                            <label class="form-label">Current Status: 
-                                                <span class="badge bg-<?php echo $statusColor; ?>">
-                                                    <?php echo htmlspecialchars($order['status']); ?>
-                                                </span>
+                                            <span class="text-muted small d-block mb-1">Current status</span>
+                                            <span class="badge bg-<?php echo $statusColor; ?>">
+                                                <?php echo htmlspecialchars($order['status']); ?>
+                                            </span>
+                                        </div>
+
+                                        <!-- New status selection as vertical button group -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Update status to</label>
+                                            <div class="btn-group-vertical w-100" role="group" aria-label="Update order status">
+                                                <?php
+                                                $statusOptions = ['Pending', 'Preparing', 'Out for Delivery', 'Delivered', 'Cancelled'];
+                                                foreach ($statusOptions as $option):
+                                                    $optionColor = $statusColors[$option] ?? 'secondary';
+                                                    $isCurrent = $order['status'] === $option;
+                                                    $optionId = 'status-' . $order['order_id'] . '-' . strtolower(str_replace(' ', '-', $option));
+                                                ?>
+                                                    <input
+                                                        type="radio"
+                                                        class="btn-check"
+                                                        name="status"
+                                                        id="<?php echo $optionId; ?>"
+                                                        value="<?php echo htmlspecialchars($option); ?>"
+                                                        <?php echo $isCurrent ? 'checked' : ''; ?>
+                                                        required
+                                                    >
+                                                    <label class="btn btn-outline-<?php echo $optionColor; ?> d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-1 mb-2" for="<?php echo $optionId; ?>">
+                                                        <span><?php echo htmlspecialchars($option); ?></span>
+                                                        <?php if ($isCurrent): ?>
+                                                            <span class="badge bg-<?php echo $optionColor; ?> mt-1 mt-sm-0">Current</span>
+                                                        <?php endif; ?>
+                                                    </label>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+
+                                        <!-- Optional note -->
+                                        <div class="mb-0">
+                                            <label for="statusNote<?php echo $order['order_id']; ?>" class="form-label small text-muted">
+                                                Optional note for kitchen / rider
                                             </label>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Update to:</label>
-                                            <select class="form-select" name="status" required>
-                                                <option value="">Select Status</option>
-                                                <option value="Pending" <?php echo $order['status'] === 'Pending' ? 'selected' : ''; ?>>
-                                                    Pending
-                                                </option>
-                                                <option value="Preparing" <?php echo $order['status'] === 'Preparing' ? 'selected' : ''; ?>>
-                                                    Preparing
-                                                </option>
-                                                <option value="Out for Delivery" <?php echo $order['status'] === 'Out for Delivery' ? 'selected' : ''; ?>>
-                                                    Out for Delivery
-                                                </option>
-                                                <option value="Delivered" <?php echo $order['status'] === 'Delivered' ? 'selected' : ''; ?>>
-                                                    Delivered
-                                                </option>
-                                                <option value="Cancelled" <?php echo $order['status'] === 'Cancelled' ? 'selected' : ''; ?>>
-                                                    Cancelled
-                                                </option>
-                                            </select>
+                                            <textarea
+                                                class="form-control"
+                                                id="statusNote<?php echo $order['order_id']; ?>"
+                                                name="status_note"
+                                                rows="2"
+                                                placeholder="Add a short note (e.g. customer not answering, rider en route, etc.)"
+                                            ></textarea>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Update Status</button>
+
+                                    <div class="modal-footer border-0 pt-0">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-1"></i> Save changes
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -268,7 +277,6 @@ $orders = $orderModel->getAll($status_filter);
             </div>
         <?php endif; ?>
         </main>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>

@@ -13,7 +13,7 @@ require_once __DIR__ . '/../../includes/cart.php';
     <link rel="stylesheet" href="/auntjoys_app/assets/css/tokens.css">
     <link rel="stylesheet" href="/auntjoys_app/assets/css/theme.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
@@ -72,7 +72,9 @@ require_once __DIR__ . '/../../includes/cart.php';
     </nav>
 
     <!-- Main Content -->
-    <?php echo $content; ?>
+    <main class="flex-fill">
+        <?php echo $content; ?>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-dark text-white mt-5 py-4">
@@ -82,7 +84,10 @@ require_once __DIR__ . '/../../includes/cart.php';
         </div>
     </footer>
 
+    <?php include __DIR__ . '/../partials/screen_loader.php'; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>
+    <script src="/auntjoys_app/assets/js/screen-loader.js"></script>
 </body>
 </html>

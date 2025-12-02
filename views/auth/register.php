@@ -17,7 +17,7 @@
                 <div class="card shadow">
                     <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <h2 class="fw-bold">Create Account</h2>
+                            <h2 class="fw-bold">Sign Up</h2>
                             <p class="text-muted">Join Aunt Joy's Restaurant</p>
                         </div>
 
@@ -78,7 +78,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100 mb-3">
-                                <i class="fas fa-user-plus"></i> Register
+                                <i class="fas fa-user-plus"></i> Sign Up
                             </button>
                         </form>
 

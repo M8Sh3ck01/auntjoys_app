@@ -1,8 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/User.php';
-
-$userModel = new User();
-$users = $userModel->getAll();
+// Assumes the controller has already prepared:
+// - $users list
 
 // Role names mapping
 $roleNames = [

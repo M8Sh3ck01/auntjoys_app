@@ -1,13 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/Category.php';
-$categoryModel = new Category();
-$categories = $categoryModel->getAll();
-
-// For editing
-$editCategory = null;
-if (isset($_GET['edit'])) {
-    $editCategory = $categoryModel->findById($_GET['edit']);
-}
+// Assumes the controller has already prepared:
+// - $categories list
 ?>
 <!DOCTYPE html>
 <html lang="en">

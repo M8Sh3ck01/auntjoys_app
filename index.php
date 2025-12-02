@@ -21,13 +21,19 @@ if ($action) {
             $subpage = $_GET['page'] ?? '';
             switch ($subpage) {
                 case 'profile':
-                    require_once './views/customer/profile.php';
+                    require_once './controllers/CustomerController.php';
+                    $controller = new CustomerController();
+                    $controller->showProfile();
                     exit;
                 case 'edit_profile':
-                    require_once './views/customer/edit_profile.php';
+                    require_once './controllers/CustomerController.php';
+                    $controller = new CustomerController();
+                    $controller->showEditProfile();
                     exit;
                 case 'change_password':
-                    require_once './views/customer/change_password.php';
+                    require_once './controllers/CustomerController.php';
+                    $controller = new CustomerController();
+                    $controller->showChangePassword();
                     exit;
             }
             break;
@@ -100,15 +106,15 @@ switch ($page) {
 
     // Admin routes
     case 'admin/dashboard':
-        requireRole([2]); // Admin only
-        require_once './views/admin/dashboard.php';
+        require_once './controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->showDashboard();
         break;
 
     case 'admin/meals':
-        requireRole([2]);
+        require_once './controllers/AdminController.php';
+        $controller = new AdminController();
         if ($action) {
-            require_once './controllers/AdminController.php';
-            $controller = new AdminController();
             switch ($action) {
                 case 'create':
                     $controller->createMeal();
@@ -124,15 +130,14 @@ switch ($page) {
                     break;
             }
         } else {
-            require_once './views/admin/meals.php';
+            $controller->showMeals();
         }
         break;
 
     case 'admin/categories':
-        requireRole([2]);
+        require_once './controllers/AdminController.php';
+        $controller = new AdminController();
         if ($action) {
-            require_once './controllers/AdminController.php';
-            $controller = new AdminController();
             switch ($action) {
                 case 'create':
                     $controller->createCategory();
@@ -145,15 +150,14 @@ switch ($page) {
                     break;
             }
         } else {
-            require_once './views/admin/categories.php';
+            $controller->showCategories();
         }
         break;
 
     case 'admin/users':
-        requireRole([2]);
+        require_once './controllers/AdminController.php';
+        $controller = new AdminController();
         if ($action) {
-            require_once './controllers/AdminController.php';
-            $controller = new AdminController();
             switch ($action) {
                 case 'create':
                     $controller->createUser();
@@ -166,52 +170,50 @@ switch ($page) {
                     break;
             }
         } else {
-            require_once './views/admin/users.php';
+            $controller->showUsers();
         }
         break;
 
     // Sales routes
     case 'sales/orders':
-        requireRole([3]); // Sales Staff only
+        require_once './controllers/SalesController.php';
+        $controller = new SalesController();
         if ($action === 'update-status') {
-            require_once './controllers/SalesController.php';
-            $controller = new SalesController();
             $controller->updateOrderStatus();
         } else {
-            require_once './views/sales/orders.php';
+            $controller->showOrders();
         }
         break;
 
     // Manager routes
     case 'manager/dashboard':
-        requireRole([4]); // Manager only
-        require_once './views/manager/dashboard.php';
+        require_once './controllers/ManagerController.php';
+        $controller = new ManagerController();
+        $controller->showDashboard();
         break;
 
     case 'manager/reports':
-        requireRole([4]);
+        require_once './controllers/ManagerController.php';
+        $controller = new ManagerController();
         if ($action === 'export-excel') {
-            require_once './controllers/ManagerController.php';
-            $controller = new ManagerController();
             $controller->exportExcel();
         } elseif ($action === 'export-pdf') {
-            require_once './controllers/ManagerController.php';
-            $controller = new ManagerController();
             $controller->exportPDF();
         } else {
-            require_once './views/manager/reports.php';
+            $controller->showReports();
         }
         break;
 
     // Customer routes
     case 'menu':
-        require_once './views/customer/menu.php';
+        require_once './controllers/CustomerController.php';
+        $controller = new CustomerController();
+        $controller->showMenu();
         break;
-
     case 'cart':
+        require_once './controllers/CustomerController.php';
+        $controller = new CustomerController();
         if ($action) {
-            require_once './controllers/CustomerController.php';
-            $controller = new CustomerController();
             switch ($action) {
                 case 'add':
                     $controller->addToCart();
@@ -224,25 +226,24 @@ switch ($page) {
                     break;
             }
         } else {
-            requireLogin();
-            require_once './views/customer/cart.php';
+            $controller->showCart();
         }
         break;
 
     case 'checkout':
-        requireLogin();
+        require_once './controllers/CustomerController.php';
+        $controller = new CustomerController();
         if ($action === 'submit') {
-            require_once './controllers/CustomerController.php';
-            $controller = new CustomerController();
             $controller->checkout();
         } else {
-            require_once './views/customer/checkout.php';
+            $controller->showCheckout();
         }
         break;
 
     case 'my-orders':
-        requireLogin();
-        require_once './views/customer/orders.php';
+        require_once './controllers/CustomerController.php';
+        $controller = new CustomerController();
+        $controller->showOrders();
         break;
 
     // Unauthorized page

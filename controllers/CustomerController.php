@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../models/Meal.php';
 require_once __DIR__ . '/../models/Order.php';
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/Category.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/cart.php';
 
@@ -19,6 +20,85 @@ class CustomerController {
         $this->mealModel = new Meal();
         $this->orderModel = new Order();
         $this->userModel = new User();
+    }
+
+    public function showMenu() {
+        $mealModel = $this->mealModel;
+        $categoryModel = new Category();
+
+        $category_filter = $_GET['category'] ?? null;
+        $search = $_GET['search'] ?? '';
+        $page_num = isset($_GET['p']) ? max(1, intval($_GET['p'])) : 1;
+        $items_per_page = 12;
+        $offset = ($page_num - 1) * $items_per_page;
+
+        if ($search) {
+            $meals = $mealModel->searchPaginated($search, $items_per_page, $offset);
+            $total_items = $mealModel->countSearch($search);
+        } else {
+            $meals = $mealModel->getAvailablePaginated($category_filter, $items_per_page, $offset);
+            $total_items = $mealModel->countAvailable($category_filter);
+        }
+
+        $total_pages = ceil($total_items / $items_per_page);
+        $categories = $categoryModel->getAll();
+
+        require __DIR__ . '/../views/customer/menu.php';
+    }
+
+    public function showProfile() {
+        requireLogin();
+
+        $user = $this->userModel->getById(getUserId());
+
+        require __DIR__ . '/../views/customer/profile.php';
+    }
+
+    public function showCart() {
+        requireLogin();
+
+        $cart = getCart();
+        $cartTotal = getCartTotal();
+
+        require __DIR__ . '/../views/customer/cart.php';
+    }
+
+    public function showCheckout() {
+        requireLogin();
+
+        if (isCartEmpty()) {
+            header('Location: /auntjoys_app/index.php?page=menu');
+            exit;
+        }
+
+        $user = $this->userModel->getById(getUserId());
+        $cart = getCart();
+        $cartTotal = getCartTotal();
+
+        require __DIR__ . '/../views/customer/checkout.php';
+    }
+
+    public function showOrders() {
+        requireLogin();
+
+        $orderModel = $this->orderModel;
+        $orders = $orderModel->getByUserId(getUserId());
+
+        require __DIR__ . '/../views/customer/orders.php';
+    }
+
+    public function showEditProfile() {
+        requireLogin();
+
+        $user = $this->userModel->getById(getUserId());
+
+        require __DIR__ . '/../views/customer/edit_profile.php';
+    }
+
+    public function showChangePassword() {
+        requireLogin();
+
+        require __DIR__ . '/../views/customer/change_password.php';
     }
 
     /**

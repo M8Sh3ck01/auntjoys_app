@@ -1,8 +1,7 @@
 <?php
-require_once __DIR__ . '/../../models/Order.php';
-
-$orderModel = new Order();
-$orders = $orderModel->getByUserId(getUserId());
+// Assumes the controller has already prepared:
+// - $orderModel (Order model instance)
+// - $orders for the current user
 ?>
 <!DOCTYPE html>
 <html lang="en">

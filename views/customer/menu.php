@@ -1,28 +1,7 @@
 <?php
-require_once __DIR__ . '/../../models/Meal.php';
-require_once __DIR__ . '/../../models/Category.php';
-require_once __DIR__ . '/../../includes/cart.php';
-
-$mealModel = new Meal();
-$categoryModel = new Category();
-
-$category_filter = $_GET['category'] ?? null;
-$search = $_GET['search'] ?? '';
-$page_num = isset($_GET['p']) ? max(1, intval($_GET['p'])) : 1;
-$items_per_page = 12;
-$offset = ($page_num - 1) * $items_per_page;
-
-// Get meals and count
-if ($search) {
-    $meals = $mealModel->searchPaginated($search, $items_per_page, $offset);
-    $total_items = $mealModel->countSearch($search);
-} else {
-    $meals = $mealModel->getAvailablePaginated($category_filter, $items_per_page, $offset);
-    $total_items = $mealModel->countAvailable($category_filter);
-}
-
-$total_pages = ceil($total_items / $items_per_page);
-$categories = $categoryModel->getAll();
+// Assumes the controller has already prepared:
+// $meals, $categories, $category_filter, $search,
+// $page_num, $items_per_page, $total_items, $total_pages
 
 // Prepare top vs. more categories for chip navigation
 $topLimit = 8;
@@ -197,6 +176,7 @@ $moreCategories = array_slice($categories, $topLimit);
         </div>
     </nav>
 
+    <?php if (!isLoggedIn()): ?>
     <!-- Hero Section -->
     <div class="hero">
         <div class="container hero-content">
@@ -204,6 +184,7 @@ $moreCategories = array_slice($categories, $topLimit);
             <p class="lead">Delicious meals delivered to your door in Mzuzu</p>
         </div>
     </div>
+    <?php endif; ?>
 
     <!-- Menu Section -->
     <div class="container my-5">
@@ -422,11 +403,6 @@ $moreCategories = array_slice($categories, $topLimit);
                             </ul>
                         </nav>
                         
-                        <p class="text-center text-muted small">
-                            Showing <?php echo (($page_num - 1) * $items_per_page) + 1; ?> 
-                            to <?php echo min($page_num * $items_per_page, $total_items); ?> 
-                            of <?php echo $total_items; ?> items
-                        </p>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
@@ -466,9 +442,11 @@ $moreCategories = array_slice($categories, $topLimit);
         </div>
     </div>
 
+    <?php require_once __DIR__ . '/../partials/screen_loader.php'; ?>
     <?php require_once __DIR__ . '/meal_detail_modal.php'; ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/skeleton-loader.js"></script>
+    <script src="/auntjoys_app/assets/js/screen-loader.js"></script>
 </body>
 </html>

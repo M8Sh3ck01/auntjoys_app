@@ -1,15 +1,7 @@
 <?php
-require_once __DIR__ . '/../../includes/auth.php';
-requireLogin(); // Customers only
-
-require_once __DIR__ . '/../../models/User.php';
-require_once __DIR__ . '/../../config/database.php';
-
-$db = Database::getInstance()->getConnection();
-$userModel = new User();
-
-// Get current user details
-$user = $userModel->getById($_SESSION['user_id']);
+// Assumes the controller has already:
+// - enforced requireLogin()
+// - loaded the current user into $user
 
 $pageTitle = "Edit Profile";
 $activePage = 'profile';

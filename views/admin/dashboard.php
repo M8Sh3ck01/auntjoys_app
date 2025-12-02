@@ -1,22 +1,7 @@
 <?php
-require_once __DIR__ . '/../../models/Meal.php';
-require_once __DIR__ . '/../../models/Category.php';
-require_once __DIR__ . '/../../models/User.php';
-require_once __DIR__ . '/../../models/Order.php';
-
-$mealModel = new Meal();
-$categoryModel = new Category();
-$userModel = new User();
-$orderModel = new Order();
-
-// Get counts
-$totalMeals = count($mealModel->getAll());
-$totalCategories = count($categoryModel->getAll());
-$totalUsers = count($userModel->getAll());
-$totalOrders = count($orderModel->getAll());
-
-// Get statistics
-$stats = $orderModel->getStatistics();
+// Assumes the controller has already prepared:
+// - $totalMeals, $totalCategories, $totalUsers, $totalOrders
+// - $stats with order statistics
 ?>
 <!DOCTYPE html>
 <html lang="en">
