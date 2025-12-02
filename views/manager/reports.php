@@ -13,62 +13,32 @@
     <!-- Design tokens and theme -->
     <link rel="stylesheet" href="/auntjoys_app/assets/css/tokens.css">
     <link rel="stylesheet" href="/auntjoys_app/assets/css/theme.css">
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/sidebar.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <button class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <a class="navbar-brand ms-3" href="#">
+            <a class="navbar-brand" href="index.php?page=manager/dashboard">
                 <i class="fas fa-chart-line"></i> Manager Panel
             </a>
-        </div>
-    </nav>
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+            <div class="d-flex align-items-center ms-auto gap-2">
+                <a href="index.php?page=manager/dashboard" class="btn btn-sm btn-outline-light">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
 
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <nav class="admin-sidebar col-md-2">
-            <div class="sidebar-header">
-                <div class="logo-wrapper">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <h5 class="restaurant-name">Aunt Joy's</h5>
-                <p class="sidebar-tagline">Manager</p>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=manager/dashboard">
-                        <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=manager/reports">
-                        <i class="fas fa-chart-bar"></i> <span>Reports</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="user-profile-avatar">
-                        <?php echo strtoupper(substr(getUsername(), 0, 1)); ?>
-                    </div>
-                    <div class="user-profile-info">
-                        <p class="user-profile-name"><?php echo htmlspecialchars(getUsername()); ?></p>
-                        <p class="user-profile-role">Manager</p>
-                    </div>
-                </div>
-                <a href="index.php?page=logout" class="btn btn-outline-light btn-sm w-100 mt-3">
+                <a href="index.php?page=manager/reports" class="btn btn-sm btn-light text-primary">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </a>
+
+                <a href="index.php?page=logout" class="btn btn-sm btn-outline-light">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Main content -->
-        <main class="admin-content col-md-10 px-md-4">
+    <!-- Main content -->
+    <main class="admin-content px-3 px-md-4 pt-3 pt-md-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="fas fa-chart-bar"></i> Sales Reports</h2>
             <div>
@@ -214,10 +184,8 @@
             </div>
         </div>
         </main>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>
-    <script src="/auntjoys_app/assets/js/sidebar.js"></script>
 </body>
 </html>

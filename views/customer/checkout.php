@@ -3,29 +3,13 @@
 // - enforced requireLogin()
 // - redirected if the cart is empty
 // - loaded $user, $cart, and $cartTotal
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Aunt Joy's Restaurant</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Design tokens and theme -->
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/tokens.css">
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/theme.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <i class="fas fa-utensils"></i> Aunt Joy's Restaurant
-            </a>
-        </div>
-    </nav>
 
-    <div class="container my-5">
+$pageTitle = 'Checkout';
+$activePage = 'cart';
+ob_start();
+?>
+
+<div class="container my-5">
         <h2 class="mb-4"><i class="fas fa-credit-card"></i> Checkout</h2>
 
         <?php
@@ -47,7 +31,7 @@
                         <h5 class="mb-0">Delivery Information</h5>
                     </div>
                     <div class="card-body">
-                        <form action="index.php?page=checkout&action=submit" method="POST" id="checkoutForm">
+                        <form action="index.php?page=checkout&action=submit" method="POST" id="checkoutForm" data-screen-loader="true">
                             <div class="mb-3">
                                 <label class="form-label">Full Name</label>
                                 <input type="text" class="form-control" value="<?php echo htmlspecialchars($user['username']); ?>" disabled>
@@ -142,8 +126,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/auntjoys_app/assets/js/button-handler.js"></script>
     <script>
         document.getElementById('checkoutForm').addEventListener('submit', function(e) {
             const address = document.querySelector('[name="delivery_address"]').value.trim();
@@ -162,5 +144,8 @@
             }
         });
     </script>
-</body>
-</html>
+
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/customer_layout.php';
+?>

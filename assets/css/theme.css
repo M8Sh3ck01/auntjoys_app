@@ -59,3 +59,19 @@ body {
   --bs-btn-disabled-border-color: #b4dcd8;
   --bs-btn-focus-shadow-rgb: 131,197,190;
 }
+
+/* Danger button tuning: pure red for critical actions (delete, logout, etc.) */
+.btn-danger {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #ff0000;         /* pure red */
+  --bs-btn-border-color: #ff0000;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #e60000;   /* slightly darker on hover */
+  --bs-btn-hover-border-color: #e60000;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #cc0000;  /* darker on active */
+  --bs-btn-active-border-color: #cc0000;
+  --bs-btn-disabled-bg: #ff9999;
+  --bs-btn-disabled-border-color: #ff9999;
+  --bs-btn-focus-shadow-rgb: 255,0,0;
+}

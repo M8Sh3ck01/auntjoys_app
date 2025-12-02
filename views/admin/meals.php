@@ -166,7 +166,11 @@
                                             </button>
                                             <a href="index.php?page=admin/meals&action=delete&id=<?php echo $meal['meal_id']; ?>" 
                                                class="btn btn-sm btn-danger"
-                                               onclick="return confirm('Delete this meal?')">
+                                               data-confirm="Delete this meal?"
+                                               data-confirm-title="Delete Meal"
+                                               data-confirm-ok="Delete"
+                                               data-confirm-cancel="Cancel"
+                                               data-confirm-variant="danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>
@@ -178,6 +182,8 @@
                 <?php endif; ?>
         </main>
     </div>
+
+    <?php require_once __DIR__ . '/../partials/confirm_dialog.php'; ?>
 
     <!-- Add Meal Modal -->
     <div class="modal fade" id="addMealModal" tabindex="-1">
@@ -277,6 +283,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>
     <script src="/auntjoys_app/assets/js/sidebar.js"></script>
+    <script src="/auntjoys_app/assets/js/confirm-dialog.js"></script>
     <script>
         function editMeal(meal) {
             document.getElementById('edit_meal_id').value = meal.meal_id;

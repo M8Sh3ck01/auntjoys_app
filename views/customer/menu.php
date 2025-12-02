@@ -7,20 +7,15 @@
 $topLimit = 8;
 $topCategories = array_slice($categories, 0, $topLimit);
 $moreCategories = array_slice($categories, $topLimit);
+
+$pageTitle = "Menu";
+$activePage = 'menu';
+ob_start();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Aunt Joy's Restaurant</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Design tokens and theme -->
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/tokens.css">
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <style>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+
         /* Mobile improvements for category chips */
         .chip-row {
             overflow-x: auto;
@@ -119,64 +114,23 @@ $moreCategories = array_slice($categories, $topLimit);
                 font-size: 0.875rem;
             }
         }
-    </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <i class="fas fa-utensils"></i> Aunt Joy's Restaurant
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.php?page=menu">Menu</a>
-                    </li>
-                    <?php if (isLoggedIn()): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=cart">
-                                <i class="fas fa-shopping-cart"></i> Cart 
-                                <?php if (getCartCount() > 0): ?>
-                                    <span class="badge bg-danger"><?php echo getCartCount(); ?></span>
-                                <?php endif; ?>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=my-orders">My Orders</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
-                               data-bs-toggle="dropdown">
-                                <i class="fas fa-user"></i> <?php echo htmlspecialchars(getUsername()); ?>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="index.php?action=customer&page=profile">
-                                    <i class="fas fa-user-circle"></i> My Profile
-                                </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="index.php?page=logout">
-                                    <i class="fas fa-sign-out-alt"></i> Logout
-                                </a></li>
-                            </ul>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=register">Register</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @media (max-width: 767.98px) {
+        .card .card-body { padding: 0.75rem 1rem; }
+        .chip-row {
+            margin-bottom: 0.5rem;
+        }
+        .chip-row .btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            min-width: auto;
+        }
+        .pagination {
+            font-size: 0.875rem;
+        }
+    }
+</style>
 
-    <?php if (!isLoggedIn()): ?>
+<?php if (!isLoggedIn()): ?>
     <!-- Hero Section -->
     <div class="hero">
         <div class="container hero-content">
@@ -186,8 +140,8 @@ $moreCategories = array_slice($categories, $topLimit);
     </div>
     <?php endif; ?>
 
-    <!-- Menu Section -->
-    <div class="container my-5">
+<!-- Menu Section -->
+<div class="container my-5">
         <?php
         // Display messages
         if (isset($_SESSION['success'])) {
@@ -442,11 +396,10 @@ $moreCategories = array_slice($categories, $topLimit);
         </div>
     </div>
 
-    <?php require_once __DIR__ . '/../partials/screen_loader.php'; ?>
-    <?php require_once __DIR__ . '/meal_detail_modal.php'; ?>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/auntjoys_app/assets/js/skeleton-loader.js"></script>
-    <script src="/auntjoys_app/assets/js/screen-loader.js"></script>
-</body>
-</html>
+<?php require_once __DIR__ . '/meal_detail_modal.php'; ?>
+<script src="/auntjoys_app/assets/js/skeleton-loader.js"></script>
+
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/customer_layout.php';
+?>

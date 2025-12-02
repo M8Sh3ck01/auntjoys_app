@@ -2,56 +2,13 @@
 // Assumes the controller has already prepared:
 // - $orderModel (Order model instance)
 // - $orders for the current user
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Orders - Aunt Joy's Restaurant</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Design tokens and theme -->
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/tokens.css">
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/theme.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <i class="fas fa-utensils"></i> Aunt Joy's Restaurant
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=menu">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=cart">
-                            <i class="fas fa-shopping-cart"></i> Cart
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.php?page=my-orders">My Orders</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
-                           data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i> <?php echo htmlspecialchars(getUsername()); ?>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="index.php?page=logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container my-5">
+$pageTitle = 'My Orders';
+$activePage = 'orders';
+ob_start();
+?>
+
+<div class="container my-5">
         <h2 class="mb-4"><i class="fas fa-receipt"></i> My Orders</h2>
 
         <?php
@@ -157,7 +114,7 @@
         <?php endif; ?>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/auntjoys_app/assets/js/button-handler.js"></script>
-</body>
-</html>
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/customer_layout.php';
+?>

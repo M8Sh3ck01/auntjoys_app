@@ -16,7 +16,7 @@ ob_start();
                     <h4 class="mb-0"><i class="fas fa-user-edit"></i> Edit Profile</h4>
                 </div>
                 <div class="card-body">
-                    <form action="?action=update_profile" method="POST" id="editProfileForm">
+                    <form action="?action=update_profile" method="POST" id="editProfileForm" data-screen-loader="true">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="username" name="username" 

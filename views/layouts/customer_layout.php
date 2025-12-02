@@ -12,10 +12,16 @@ require_once __DIR__ . '/../../includes/cart.php';
     <!-- Design tokens and theme -->
     <link rel="stylesheet" href="/auntjoys_app/assets/css/tokens.css">
     <link rel="stylesheet" href="/auntjoys_app/assets/css/theme.css">
+    <style>
+        /* Offset for fixed navbar on customer pages */
+        body.d-flex.min-vh-100 {
+            padding-top: 72px; /* approximate navbar height */
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.php">
                 <i class="fas fa-utensils"></i> Aunt Joy's Restaurant
@@ -53,7 +59,12 @@ require_once __DIR__ . '/../../includes/cart.php';
                                     <i class="fas fa-user-circle"></i> My Profile
                                 </a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="index.php?page=logout">
+                                <li><a class="dropdown-item" href="index.php?page=logout"
+                                       data-confirm="Log out from your account?"
+                                       data-confirm-title="Log Out"
+                                       data-confirm-ok="Log Out"
+                                       data-confirm-cancel="Stay Signed In"
+                                       data-confirm-variant="danger">
                                     <i class="fas fa-sign-out-alt"></i> Logout
                                 </a></li>
                             </ul>
@@ -85,9 +96,11 @@ require_once __DIR__ . '/../../includes/cart.php';
     </footer>
 
     <?php include __DIR__ . '/../partials/screen_loader.php'; ?>
+    <?php include __DIR__ . '/../partials/confirm_dialog.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>
     <script src="/auntjoys_app/assets/js/screen-loader.js"></script>
+    <script src="/auntjoys_app/assets/js/confirm-dialog.js"></script>
 </body>
 </html>

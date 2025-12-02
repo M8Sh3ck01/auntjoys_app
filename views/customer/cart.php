@@ -1,59 +1,13 @@
 <?php
 // Assumes the controller has already prepared:
 // $cart and $cartTotal for the current user
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - Aunt Joy's Restaurant</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Design tokens and theme -->
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/tokens.css">
-    <link rel="stylesheet" href="/auntjoys_app/assets/css/theme.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <i class="fas fa-utensils"></i> Aunt Joy's Restaurant
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=menu">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.php?page=cart">
-                            <i class="fas fa-shopping-cart"></i> Cart
-                            <?php if (getCartCount() > 0): ?>
-                                <span class="badge bg-danger"><?php echo getCartCount(); ?></span>
-                            <?php endif; ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=my-orders">My Orders</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
-                           data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i> <?php echo htmlspecialchars(getUsername()); ?>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="index.php?page=logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container my-5">
+$pageTitle = 'Shopping Cart';
+$activePage = 'cart';
+ob_start();
+?>
+
+<div class="container my-5">
         <h2 class="mb-4"><i class="fas fa-shopping-cart"></i> Shopping Cart</h2>
 
         <?php
@@ -116,7 +70,11 @@
                                                 <td>
                                                     <a href="index.php?page=cart&action=remove&id=<?php echo $item['meal_id']; ?>" 
                                                        class="btn btn-sm btn-danger"
-                                                       onclick="return confirm('Remove this item?')">
+                                                       data-confirm="Remove this item?"
+                                                       data-confirm-title="Remove Item"
+                                                       data-confirm-ok="Remove"
+                                                       data-confirm-cancel="Cancel"
+                                                       data-confirm-variant="danger">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -161,7 +119,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/auntjoys_app/assets/js/button-handler.js"></script>
-</body>
-</html>
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/customer_layout.php';
+?>

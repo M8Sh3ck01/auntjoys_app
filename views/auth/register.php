@@ -31,7 +31,7 @@
                         }
                         ?>
 
-                        <form action="index.php?page=register&action=submit" method="POST" id="registerForm">
+                        <form action="index.php?page=register&action=submit" method="POST" id="registerForm" data-screen-loader="true">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username *</label>
                                 <div class="input-group">
@@ -95,6 +95,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>
+    <script src="/auntjoys_app/assets/js/screen-loader.js"></script>
     <script>
         // Client-side validation
         document.getElementById('registerForm').addEventListener('submit', function(e) {

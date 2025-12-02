@@ -155,10 +155,15 @@ $roleNames = [
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <?php if ($user['user_id'] != getUserId()): ?>
-                                            <button class="btn btn-sm btn-danger"
-                                                    onclick="if(confirm('Delete this user?')) window.location.href='index.php?page=admin/users&action=delete&id=<?php echo $user['user_id']; ?>'">
+                                            <a href="index.php?page=admin/users&action=delete&id=<?php echo $user['user_id']; ?>"
+                                               class="btn btn-sm btn-danger"
+                                               data-confirm="Delete this user?"
+                                               data-confirm-title="Delete User"
+                                               data-confirm-ok="Delete"
+                                               data-confirm-cancel="Cancel"
+                                               data-confirm-variant="danger">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
+                                            </a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -168,6 +173,8 @@ $roleNames = [
                 </div>
         </main>
     </div>
+
+    <?php require_once __DIR__ . '/../partials/confirm_dialog.php'; ?>
 
     <!-- Add User Modal -->
     <div class="modal fade" id="addUserModal" tabindex="-1">
@@ -256,6 +263,7 @@ $roleNames = [
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>
     <script src="/auntjoys_app/assets/js/sidebar.js"></script>
+    <script src="/auntjoys_app/assets/js/confirm-dialog.js"></script>
     <script>
         function editUser(user) {
             document.getElementById('edit_user_id').value = user.user_id;

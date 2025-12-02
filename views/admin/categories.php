@@ -147,7 +147,11 @@
                                                             </button>
                                                             <a href="index.php?page=admin/categories&action=delete&id=<?php echo $category['category_id']; ?>" 
                                                                class="btn btn-sm btn-danger"
-                                                               onclick="return confirm('Delete this category? This will fail if it has meals.')">
+                                                               data-confirm="Delete this category? This will fail if it has meals."
+                                                               data-confirm-title="Delete Category"
+                                                               data-confirm-ok="Delete"
+                                                               data-confirm-cancel="Cancel"
+                                                               data-confirm-variant="danger">
                                                                 <i class="fas fa-trash"></i> Delete
                                                             </a>
                                                         </div>
@@ -181,7 +185,11 @@
                                                             </button>
                                                             <a href="index.php?page=admin/categories&action=delete&id=<?php echo $category['category_id']; ?>" 
                                                                class="btn btn-sm btn-danger"
-                                                               onclick="return confirm('Delete this category? This will fail if it has meals.')">
+                                                               data-confirm="Delete this category? This will fail if it has meals."
+                                                               data-confirm-title="Delete Category"
+                                                               data-confirm-ok="Delete"
+                                                               data-confirm-cancel="Cancel"
+                                                               data-confirm-variant="danger">
                                                                 <i class="fas fa-trash"></i>
                                                             </a>
                                                         </td>
@@ -197,6 +205,8 @@
                 </div>
         </main>
     </div>
+
+    <?php require_once __DIR__ . '/../partials/confirm_dialog.php'; ?>
 
     <!-- Add Category Modal -->
     <div class="modal fade" id="addCategoryModal" tabindex="-1">
@@ -258,6 +268,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/auntjoys_app/assets/js/button-handler.js"></script>
     <script src="/auntjoys_app/assets/js/sidebar.js"></script>
+    <script src="/auntjoys_app/assets/js/confirm-dialog.js"></script>
     <script>
         function editCategory(category) {
             document.getElementById('edit_category_id').value = category.category_id;

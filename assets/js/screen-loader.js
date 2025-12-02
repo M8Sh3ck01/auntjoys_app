@@ -33,3 +33,12 @@ if (typeof window !== 'undefined') {
   window.ScreenLoader = ScreenLoader;
 }
 
+// Auto-show loader for forms that opt in via data-screen-loader="true"
+document.addEventListener('submit', (e) => {
+  const form = e.target;
+  if (!(form instanceof HTMLFormElement)) return;
+
+  if (form.getAttribute('data-screen-loader') === 'true') {
+    showScreenLoader();
+  }
+});

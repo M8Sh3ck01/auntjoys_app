@@ -14,7 +14,7 @@ ob_start();
                     <h4 class="mb-0"><i class="fas fa-key"></i> Change Password</h4>
                 </div>
                 <div class="card-body">
-                    <form action="?action=update_password" method="POST" id="changePasswordForm">
+                    <form action="?action=update_password" method="POST" id="changePasswordForm" data-screen-loader="true">
                         <div class="mb-3">
                             <label for="current_password" class="form-label">Current Password <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" id="current_password" 
